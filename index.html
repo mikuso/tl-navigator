@@ -17,16 +17,19 @@
 
 <body>
     <form action="" type="post" id="CoordinatesForm">
+        <h3>Enter coordinates of origin and destination locations</h3>
+        <b>Important note</b>: z coordinate is same as in online map and is <b>reversed</b> compared to the game. In-game 1000,2000 becomes 1000,-2000 here.
         <div>
-            Source location:<br>
+            Origin:<br>
             <input id="sourceX" name="sourceX" type="number"></input>
             <input id="sourceY" name="sourceY" type="number"></input>
         </div>
         <div>
-            Target location:<br>
+            Destination:<br>
             <input id="targetX" name="targetX" type="number"></input>
             <input id="targetY" name="targetY" type="number"></input>
         </div>
+        <h3>Tweak the algorithm to maybe find better result:</h3>
         <div>
             <span title="How much you're willing to walk">Max walk distance between 2 translocators:</span><br>
             <input id="maxWalkDistance" name="maxWalkDistance" type="number" min="1" max="1000000"></input>
