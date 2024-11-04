@@ -78,11 +78,12 @@ export function findPath(geojson, start, stop, maxWalkDistance, translocatorWeig
         return Math.abs(node1 - node2) === 1 && Math.min(node1, node2) % 2 === 0;
     }
 
+    let path = jsnx.shortestPaths.dijkstraPath(graph, { source: startNodeId, target: stopNodeId });
+
     // When using incomplete graph algorithm may choose to walk you through several close nodes
     // without teleporting. If that's the case, we should reduce path.
     const MASK_PASSTHROUGH = 0;
     const MASK_NORMAL = 1;
-    let path = jsnx.shortestPaths.dijkstraPath(graph, { source: startNodeId, target: stopNodeId });
     const teleportMask = [MASK_NORMAL, MASK_NORMAL];
     for (let i = 2; i < path.length - 1; i++) {
         let node = path[i];
@@ -94,9 +95,9 @@ export function findPath(geojson, start, stop, maxWalkDistance, translocatorWeig
             teleportMask[i] = MASK_PASSTHROUGH;
         }
     }
-    for (let i = teleportMask.length - 1; i >= 0; i--) {
+    for (let i = teleportMask.length - 1; i > 0; i--) {
         if (teleportMask[i] === MASK_PASSTHROUGH) {
-            path.splice(i, i);
+            path.splice(i, 1);
         }
     }
 
