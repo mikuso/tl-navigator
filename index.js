@@ -40,7 +40,11 @@ const defaultFormData = {
     translocatorWeight: 100,
 }
 
-const numberValues = ["sourceX", "targetX", "maxWalkDistance", "translocatorWeight"];
+const numberValues = [
+    "sourceX", "targetX",
+    "sourceY", "targetY",
+    "maxWalkDistance", "translocatorWeight"
+];
 
 /**
  * @param {[number, number]} point
