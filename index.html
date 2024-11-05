@@ -27,56 +27,83 @@
             a {
                 color: aqua;
             }
+            .footer {
+                background-color: #0F0F0F;
+            }
         }
         @media (prefers-color-scheme: light) {
             :root {
                 background-color: white;
                 color: black;
             }
+            .footer {
+                background-color: white;
+            }
         }
         .hidden {
             display: none;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            height: 4.2rem;
+            margin: 0;
+        }
+        .app {
+            padding-bottom: 4.2rem;
         }
     </style>
 </head>
 
 <body>
-    <form action="" type="post" id="CoordinatesForm">
-        <h3>Enter coordinates of origin and destination locations</h3>
-        <b>Important note</b>: z coordinate is same as in online map and is <b>reversed</b> compared to the game. In-game 1000,2000 becomes 1000,-2000 here.
-        <div>
-            Origin:<br>
-            <input id="sourceX" name="sourceX" type="number"></input>
-            <input id="sourceY" name="sourceY" type="number"></input>
-        </div>
-        <div>
-            Destination:<br>
-            <input id="targetX" name="targetX" type="number"></input>
-            <input id="targetY" name="targetY" type="number"></input>
-        </div>
-        <h3>Tweak the algorithm to maybe find better result:</h3>
-        <div>
-            <span title="How much you're willing to walk">Max walk distance between 2 translocators:</span><br>
-            <input id="maxWalkDistance" name="maxWalkDistance" type="number" min="1" max="1000000"></input>
-        </div>
-        <div>
-            <span title="How much you're not willing to take extra translocators">Weight of link between
-                translocators:</span><br>
-            <input id="translocatorWeight" name="translocatorWeight" type="number" min="0" max="1000"></input>
-        </div>
-        <h3>Vintage Story server:</h3>
-        <div>
-            Select server:<br>
-            <select id="mapUrlSelect" name="mapUrlSelect"></select>
-            <button id="editServerInfo" type="button">Edit</button>
-            <button id="newServerInfo" type="button">New</button>
-            <button id="resetServerInfo" type="button">Reset list</button><br>
-        </div>
-        <server-editor id="customServerEditor"></server-editor>
-        <br>
-        <button id="calculateButton" type="button">Calculate path</button>
-    </form>
-    <div id="output"></div>
+    <div class="app">
+        <form action="" type="post" id="CoordinatesForm">
+            <h3>Enter coordinates of origin and destination locations</h3>
+            <b>Important note</b>: z coordinate is same as in online map and is <b>reversed</b> compared to the game. In-game 1000,2000 becomes 1000,-2000 here.
+            <div>
+                Origin:<br>
+                <input id="sourceX" name="sourceX" type="number"></input>
+                <input id="sourceY" name="sourceY" type="number"></input>
+            </div>
+            <div>
+                Destination:<br>
+                <input id="targetX" name="targetX" type="number"></input>
+                <input id="targetY" name="targetY" type="number"></input>
+            </div>
+            <h3>Tweak the algorithm:</h3>
+            <div>
+                <span title="How much you're willing to walk">Max walk distance between 2 translocators:</span><br>
+                <input id="maxWalkDistance" name="maxWalkDistance" type="number" min="1" max="1000000"></input>
+            </div>
+            <div>
+                <span title="How much you're not willing to take extra translocators">Weight of link between
+                    translocators:</span><br>
+                <input id="translocatorWeight" name="translocatorWeight" type="number" min="0" max="1000"></input>
+            </div>
+            <h3>Vintage Story server:</h3>
+            <div>
+                Select server:<br>
+                <select id="mapUrlSelect" name="mapUrlSelect"></select>
+                <button id="editServerInfo" type="button">Edit</button>
+                <button id="newServerInfo" type="button">New</button>
+                <button id="resetServerInfo" type="button">Reset list</button><br>
+            </div>
+            <server-editor id="customServerEditor"></server-editor>
+            <br>
+            <button id="calculateButton" type="button">Calculate path</button>
+        </form>
+        <div id="output"></div>
+    </div>
+    <footer class="footer">
+        <hr>
+        Source repository: <a href="https://github.com/herrscher-of-sleeping/tl-navigator">https://github.com/herrscher-of-sleeping/tl-navigator</a><br>
+        mail:
+        <a href="mailto:herrscher.of.the.tea@gmail.com">herrscher.of.the.tea@gmail.com</a>,
+        Discord: raiden_fumo
+    </footer>
     <script src="./index.js" type="module"></script>
 </body>
 
