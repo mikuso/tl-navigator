@@ -86,8 +86,8 @@ function _calculatePathInternal() {
     formData = getFormData();
     return findPath(
         geojson,
-        [formData.sourceX, formData.sourceY],
-        [formData.targetX, formData.targetY],
+        [formData.sourceX, -formData.sourceY],
+        [formData.targetX, -formData.targetY],
         formData.maxWalkDistance,
         formData.translocatorWeight
     );

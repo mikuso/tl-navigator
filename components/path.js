@@ -12,15 +12,16 @@ template.innerHTML = `
 function makeLink(point, mapLink) {
     const urlStr = mapLink;
     const url = urlStr ? new URL(urlStr) : null;
+    const visibleCoords = `${point[0]},${-point[1]}`;
     if (!url) {
-        return `<span>${point[0]},${point[1]}</span>`;
+        return `<span>${visibleCoords}</span>`;
     }
     url.searchParams.append("x", String(point[0]));
     url.searchParams.append("y", String(point[1]));
     url.searchParams.append("zoom", "11");
     return `<a
         href="${url}"
-        target="_blank">${point[0]},${point[1]}</a>`;
+        target="_blank">${visibleCoords}</a>`;
 }
 
 
