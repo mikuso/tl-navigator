@@ -14,6 +14,9 @@ template.innerHTML = `
         a {
             color: aqua;
         }
+        a:visited {
+            color: chocolate;
+        }
     }
     @media (prefers-color-scheme: light) {
         :root {

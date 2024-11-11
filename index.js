@@ -26,9 +26,6 @@ const resetServerInfo = document.getElementById("resetServerInfo");
 const customServerEditor = document.getElementById("customServerEditor");
 /** @type {HTMLFormElement} */
 const coordinatesForm = document.forms["CoordinatesForm"];
-/** @type {HTMLDivElement} */
-// @ts-ignore
-const outputDiv = document.getElementById("output");
 
 // AF = https://map.ri.aurafury.org
 // TOPS = https://map.tops.vintagestory.at
@@ -45,24 +42,6 @@ const numberValues = [
     "sourceY", "targetY",
     "maxWalkDistance", "translocatorWeight"
 ];
-
-/**
- * @param {[number, number]} point
- * @returns
- */
-function makeLink(point) {
-    const urlStr = data.getServerInfo(data.getCurrentServer())?.url;
-    const url = urlStr ? new URL(urlStr) : null;
-    if (!url) {
-        return `<span>${point[0]},${point[1]}</span>`;
-    }
-    url.searchParams.append("x", String(point[0]));
-    url.searchParams.append("y", String(point[1]));
-    url.searchParams.append("zoom", "11");
-    return `<a
-        href="${url}"
-        target="_blank">${point[0]},${point[1]}</a>`;
-}
 
 function fillMapSelect(serverList) {
     if (!serverList) {
@@ -105,31 +84,24 @@ function getFormData() {
 function _calculatePathInternal() {
     const geojson = data.getCurrentGeojson();
     formData = getFormData();
-    let path = findPath(
+    return findPath(
         geojson,
         [formData.sourceX, formData.sourceY],
         [formData.targetX, formData.targetY],
         formData.maxWalkDistance,
         formData.translocatorWeight
     );
-    let output = ["<ul>"]
-    output.push(`<li>Start at ${makeLink(path[0])}</li>`);
-    for (let i = 1; i < path.length - 1; i += 2) {
-        output.push(`<li>Teleport from ${makeLink(path[i])} to ${makeLink(path[i + 1])}</li>`);
-    }
-    output.push(`<li>Go to ${makeLink(path[path.length - 1])}</li>`);
-    output.push("</ul>");
-    const text = output.join("");
-    outputDiv.innerHTML = text;
 }
 
 function calculatePath() {
     calculateButton.setAttribute("disabled", "disabled");
     try {
-        _calculatePathInternal()
+        const path = _calculatePathInternal();
+        data.setPath(path);
     } catch (e) {
+        let text = "";
         if (e.name === "JSNetworkXNoPath") {
-            outputDiv.innerHTML = `Location is unreachable with current the settings<br>
+            text = `Location is unreachable with current the settings<br>
             Try increasing max walk distance (very big numbers make algorithm slower)`;
         } else {
             console.error(e);
@@ -140,7 +112,7 @@ function calculatePath() {
                 null,
                 2
             );
-            outputDiv.innerHTML = `Error:
+            text = `Error:
             ${e.message}
             <br>
             If you want to report this bug, please send message with the following text:
@@ -148,6 +120,7 @@ function calculatePath() {
             to <a href="mailto:herrscher.of.the.tea@gmail.com">herrscher.of.the.tea@gmail.com</a>
             `;
         }
+        data.setErrorText(text);
     }
     calculateButton.removeAttribute("disabled");
 }

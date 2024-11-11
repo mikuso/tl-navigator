@@ -18,6 +18,7 @@
     <script type="module" src="pathfinder.js"></script>
     <script type="module" src="server_editor.js"></script>
     <script type="module" src="data_model.js"></script>
+    <script type="module" src="components/path.js"></script>
     <style>
         @media (prefers-color-scheme: dark) {
             :root {
@@ -95,7 +96,7 @@
             <br>
             <button id="calculateButton" type="button">Calculate path</button>
         </form>
-        <div id="output"></div>
+        <tl-navigator-path></tl-navigator-path>
     </div>
     <footer class="footer">
         <hr>

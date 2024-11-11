@@ -21,7 +21,11 @@ const internal = {
     /** @type {Array<string>?} */
     serverList: null,
     currentServerGeojson: null,
+    path: null,
 }
+
+const pathSubscribers = [];
+const errorSubscribers = [];
 
 export const data = {
     /** @type {string?} */
@@ -131,15 +135,44 @@ export const data = {
 
     getCurrentGeojson() {
         const currentServer = this.getCurrentServer();
-        console.log(currentServer);
         const currentServerInfo = this.getServerInfo(currentServer);
-        console.log(currentServerInfo);
         const geojson = currentServerInfo?.geojson;
         if (!geojson) {
             throw Error("Server geojson not found");
         }
 
         return JSON.parse(geojson);
+    },
+
+    setPath(path) {
+        internal.path = path;
+        pathSubscribers.forEach(sub => {
+            sub.dispatchEvent(
+                new CustomEvent(
+                    "update-path",
+                    { detail: { path: path} },
+                )
+            )
+        });
+    },
+
+    setErrorText(errorText) {
+        errorSubscribers.forEach(sub => {
+            sub.dispatchEvent(
+                new CustomEvent(
+                    "update-error",
+                    { detail: { error: errorText } },
+                )
+            )
+        });
+    },
+
+    addPathSubscriber(el) {
+        pathSubscribers.push(el);
+    },
+
+    addErrorSubscriber(el) {
+        errorSubscribers.push(el);
     },
 
     assureDataValid(forceReset) {
