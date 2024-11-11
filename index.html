@@ -10,14 +10,14 @@
             "imports": {
                 "./pathfinder": "./pathfinder.js",
                 "./index": "./index.js",
-                "./server_editor": "./server_editor.js",
+                "./components/server_editor": "./components/server_editor.js",
                 "./data_model": "./data_model.js"
             }
         }
     </script>
     <script type="module" src="pathfinder.js"></script>
-    <script type="module" src="server_editor.js"></script>
     <script type="module" src="data_model.js"></script>
+    <script type="module" src="components/server_editor.js"></script>
     <script type="module" src="components/path.js"></script>
     <style>
         @media (prefers-color-scheme: dark) {
@@ -92,7 +92,7 @@
                 <button id="newServerInfo" type="button">New</button>
                 <button id="resetServerInfo" type="button">Reset list</button><br>
             </div>
-            <server-editor id="customServerEditor"></server-editor>
+            <tl-navigator-server-editor id="customServerEditor"></tl-navigator-server-editor>
             <br>
             <button id="calculateButton" type="button">Calculate path</button>
         </form>

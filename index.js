@@ -1,7 +1,7 @@
 // @ts-check
 import { findPath } from "./pathfinder";
 import { data, SERVER_EDIT_MODE } from "./data_model";
-import { ServerEditor } from "./server_editor";
+import { TlNavigatorServerEditor } from "./components/server_editor";
 // Welcome to the spaghetti realm
 
 let formData = null;
@@ -21,7 +21,7 @@ const newServerInfo = document.getElementById("newServerInfo");
 /** @type {HTMLButtonElement} */
 // @ts-ignore
 const resetServerInfo = document.getElementById("resetServerInfo");
-/** @type {ServerEditor} */
+/** @type {TlNavigatorServerEditor} */
 // @ts-ignore
 const customServerEditor = document.getElementById("customServerEditor");
 /** @type {HTMLFormElement} */

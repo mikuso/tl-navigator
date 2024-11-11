@@ -1,6 +1,6 @@
 // @ts-check
 // @ts-ignore
-import { SERVER_EDIT_MODE, data } from "./data_model";
+import { SERVER_EDIT_MODE, data } from "../data_model";
 
 const template = document.createElement("template");
 
@@ -70,7 +70,7 @@ function renameServer(oldServerName, newServerName) {
     return [true, servers];
 }
 
-export class ServerEditor extends HTMLElement {
+export class TlNavigatorServerEditor extends HTMLElement {
     static observedAttributes = [ "data-name", "data-url" ];
     constructor() {
         super();
@@ -179,4 +179,4 @@ export class ServerEditor extends HTMLElement {
     }
 }
 
-customElements.define("server-editor", ServerEditor);
+customElements.define("tl-navigator-server-editor", TlNavigatorServerEditor);
