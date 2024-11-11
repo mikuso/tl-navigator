@@ -32,7 +32,7 @@ const coordinatesForm = document.forms["CoordinatesForm"];
 
 const defaultFormData = {
     sourceX: 0, sourceY: 0,
-    targetX: 163450, targetY: -207500,
+    targetX: 0, targetY: 0,
     maxWalkDistance: 4000,
     translocatorWeight: 100,
 }
