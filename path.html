@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="importmap">
+        {
+            "imports": {
+                "./pathfinder": "./pathfinder.js",
+                "./index": "./index.js",
+                "./components/server_editor": "./components/server_editor.js",
+                "./data_model": "./data_model.js"
+            }
+        }
+    </script>
+    <script type="module" src="components/path.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div id="root" class="app">
+        <tl-navigator-path id="path"></tl-navigator-path>
+    </div>
+    <footer class="footer">
+        <hr>
+        Source repository: <a href="https://github.com/herrscher-of-sleeping/tl-navigator">https://github.com/herrscher-of-sleeping/tl-navigator</a><br>
+        mail:
+        <a href="mailto:herrscher.of.the.tea@gmail.com">herrscher.of.the.tea@gmail.com</a>,
+        Discord: raiden_fumo
+    </footer>
+    <script type="module">
+        import { data } from "../data_model";
+        const searchParams = new URL(window.location.href).searchParams;
+        const path = JSON.parse(
+            searchParams.get("path")
+        );
+        const url = searchParams.get("map-link");
+        document.getElementById("path").dispatchEvent(
+            new CustomEvent(
+                "update-path",
+                { detail: { path: path, url: url } },
+            )
+        );
+    </script>
+</body>
+
+</html>
