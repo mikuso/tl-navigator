@@ -5,44 +5,16 @@ import { SERVER_EDIT_MODE, data } from "../data_model";
 const template = document.createElement("template");
 
 template.innerHTML = `
-    <style>
-    @media (prefers-color-scheme: dark) {
-        :root {
-            background-color: #0F0F0F;
-            color: white;
-        }
-        a {
-            color: aqua;
-        }
-        a:visited {
-            color: chocolate;
-        }
-    }
-    @media (prefers-color-scheme: light) {
-        :root {
-            background-color: white;
-            color: black;
-        }
-    }
-    .server-editor {
-        border-color:aqua;
-        border-width: 1px;
-        border-style: solid;
-        border-radius: 3px;
-        margin: 2px;
-        padding: 2px;
-    }
-    </style>
-    <div class="hidden server-editor">
-        Name:<br>
-        <input id="customServerName" name="customServerName" type="text"><br>
-        Custom map link:<br>
-        <input id="customServerUrl" name="customServerUrl" type="text"><br>
-        Custom geojson file (<a id="customGeojsonUrl" target="_blank">download</a> from map website):<br>
-        <input id="customGeojsonFileInput" name="customGeojsonFileInput" type="file"><br><br>
-        <button id="saveCustomServer" type="button">Save</button>
-        <button id="cancelCustomServer" type="button">Cancel</button>
-    </div>
+<div class="hidden server-editor">
+    Name:<br>
+    <input id="customServerName" name="customServerName" type="text"><br>
+    Custom map link:<br>
+    <input id="customServerUrl" name="customServerUrl" type="text"><br>
+    Custom geojson file (<a id="customGeojsonUrl" target="_blank">download</a> from map website):<br>
+    <input id="customGeojsonFileInput" name="customGeojsonFileInput" type="file"><br><br>
+    <button id="saveCustomServer" type="button">Save</button>
+    <button id="cancelCustomServer" type="button">Cancel</button>
+</div>
 `;
 
 

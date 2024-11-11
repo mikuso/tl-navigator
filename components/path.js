@@ -2,32 +2,7 @@ const template = document.createElement("template");
 import { data } from "../data_model";
 
 template.innerHTML = `
-<style>
-@media (prefers-color-scheme: dark) {
-    :root {
-        background-color: #0F0F0F;
-        color: white;
-    }
-    a {
-        color: aqua;
-    }
-    a:visited {
-        color: chocolate;
-    }
-    .footer {
-        background-color: #0F0F0F;
-    }
-}
-@media (prefers-color-scheme: light) {
-    :root {
-        background-color: white;
-        color: black;
-    }
-    .footer {
-        background-color: white;
-    }
-}
-</style>
+<link rel="stylesheet" href="main.css">
 <div id="output"></div>`;
 
 /**

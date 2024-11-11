@@ -1,0 +1,50 @@
+@media (prefers-color-scheme: dark) {
+    :root {
+        background-color: #0F0F0F;
+        color: white;
+    }
+    a {
+        color: aqua;
+    }
+    a:visited {
+        color: chocolate;
+    }
+    .footer {
+        background-color: #0F0F0F;
+    }
+}
+@media (prefers-color-scheme: light) {
+    :root {
+        background-color: white;
+        color: black;
+    }
+    .footer {
+        background-color: white;
+    }
+}
+
+.server-editor {
+    border-color:aqua;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 3px;
+    margin: 2px;
+    padding: 2px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    height: 4.2rem;
+    margin: 0;
+}
+
+.app {
+    padding-bottom: 4.2rem;
+}
+.hidden {
+    display: none;
+}
