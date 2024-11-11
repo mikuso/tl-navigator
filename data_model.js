@@ -150,10 +150,14 @@ export const data = {
             sub.dispatchEvent(
                 new CustomEvent(
                     "update-path",
-                    { detail: { path: path} },
+                    { detail: { path: path, url: this.getServerInfo(this.getCurrentServer())?.url } },
                 )
             )
         });
+    },
+
+    getPath() {
+        return internal.path
     },
 
     setErrorText(errorText) {

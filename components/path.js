@@ -9,8 +9,8 @@ template.innerHTML = `
  * @param {[number, number]} point
  * @returns
  */
-function makeLink(point) {
-    const urlStr = data.getServerInfo(data.getCurrentServer())?.url;
+function makeLink(point, mapLink) {
+    const urlStr = mapLink;
     const url = urlStr ? new URL(urlStr) : null;
     if (!url) {
         return `<span>${point[0]},${point[1]}</span>`;
@@ -36,8 +36,9 @@ export class TlNavigatorPath extends HTMLElement {
             "update-path",
             function(event) {
                 const path = event.detail.path;
+                const mapLink = event.detail.url;
 
-                this.#updatePath(path);
+                this.#updatePath(path, mapLink);
             }
         );
 
@@ -54,14 +55,14 @@ export class TlNavigatorPath extends HTMLElement {
         data.addPathSubscriber(this);
     }
 
-    #updatePath(path) {
+    #updatePath(path, mapLink) {
         const output = [];
         output.push("<ul>");
-        output.push(`<li>Start at ${makeLink(path[0])}</li>`);
+        output.push(`<li>Start at ${makeLink(path[0], mapLink)}</li>`);
         for (let i = 1; i < path.length - 1; i += 2) {
-            output.push(`<li>Teleport from ${makeLink(path[i])} to ${makeLink(path[i + 1])}</li>`);
+            output.push(`<li>Teleport from ${makeLink(path[i], mapLink)} to ${makeLink(path[i + 1], mapLink)}</li>`);
         }
-        output.push(`<li>Go to ${makeLink(path[path.length - 1])}</li>`);
+        output.push(`<li>Go to ${makeLink(path[path.length - 1], mapLink)}</li>`);
         output.push("</ul>");
         const text = output.join("");
         this.outputDiv.innerHTML = text;
