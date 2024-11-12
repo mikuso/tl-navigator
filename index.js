@@ -190,3 +190,29 @@ customServerEditor.addEventListener(
         setServerInfoEditable(false);
     }
 );
+
+function handlePaste(event) {
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const pastedData = clipboardData.getData('Text');
+    try {
+        const url = new URL(pastedData);
+        const x = Number(url.searchParams.get("x"));
+        const y = -Number(url.searchParams.get("y"));
+
+        if (this.id === "sourceCoordinates") {
+            document.getElementById("sourceX").value = x;
+            document.getElementById("sourceY").value = y;
+        } else if (this.id === "targetCoordinates") {
+            document.getElementById("targetX").value = x;
+            document.getElementById("targetY").value = y;
+        }
+
+        event.stopPropagation();
+        event.preventDefault();
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+document.getElementById("sourceCoordinates")?.addEventListener("paste", handlePaste, true);
+document.getElementById("targetCoordinates")?.addEventListener("paste", handlePaste, true);
