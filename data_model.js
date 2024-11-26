@@ -24,6 +24,7 @@ const internal = {
     path: null,
 }
 
+const CURRENT_SCHEMA_VERSION = "1-26.11.24";
 const pathSubscribers = [];
 const errorSubscribers = [];
 
@@ -183,7 +184,7 @@ export const data = {
         async function onFirstLoad() {
             localStorage.clear();
             const geojsonString = await (await fetch("./translocators.geojson")).text();
-            localStorage.setItem("SCHEMA_VERSION", "1");
+            localStorage.setItem("SCHEMA_VERSION", CURRENT_SCHEMA_VERSION);
             data.setServerList([defaultServerName]);
             data.setServerInfo(defaultServerName, {
                 geojson: geojsonString,
@@ -191,7 +192,7 @@ export const data = {
             });
         }
 
-        if (forceReset || localStorage.getItem("SCHEMA_VERSION") != "1") {
+        if (forceReset || localStorage.getItem("SCHEMA_VERSION") != CURRENT_SCHEMA_VERSION) {
             onFirstLoad();
         }
     }
