@@ -58,17 +58,13 @@ export function findPath(geojson, start, stop, maxWalkDistance, translocatorWeig
     nodes.push(start);
     for (let i = 0; i < nodes.length - 1; i++) {
         const dist = getDistance(nodes[i], start);
-        if (dist <= maxWalkDistance) {
-            graph.addWeightedEdgesFrom([[i, startNodeId, dist]])
-        }
+        graph.addWeightedEdgesFrom([[i, startNodeId, dist]])
     }
     const stopNodeId = nodes.length;
     nodes.push(stop);
     for (let i = 0; i < nodes.length - 1; i++) {
         const dist = getDistance(nodes[i], stop);
-        if (dist <= maxWalkDistance) {
-            graph.addWeightedEdgesFrom([[i, stopNodeId, dist]])
-        }
+        graph.addWeightedEdgesFrom([[i, stopNodeId, dist]])
     }
 
     function areLinked(node1, node2) {
