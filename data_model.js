@@ -24,7 +24,7 @@ const internal = {
     path: null,
 }
 
-const CURRENT_SCHEMA_VERSION = "1-09.04.25";
+const CURRENT_SCHEMA_VERSION = "1-25.04.25";
 const pathSubscribers = [];
 const errorSubscribers = [];
 
