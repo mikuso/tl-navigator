@@ -6,10 +6,10 @@ template.innerHTML = `
 <div id="output"></div>`;
 
 
-function waypointBtn(point) {
+function waypointBtn(point, idx, total) {
     const clipboardEnabled = !!window.navigator.clipboard;
     return `<button ${clipboardEnabled ? '' : 'disabled'}
-        onclick="copyWaypoint(${point[0]}, ${point[1]})"
+        onclick="copyWaypoint(${point[0]}, ${point[1]}, ${idx}, ${total})"
         >Copy /waypoint</button>`;
 }
 
@@ -18,7 +18,7 @@ function waypointBtn(point) {
  * @param {[number, number]} point
  * @returns
  */
-function makeLink(point, mapLink) {
+function makeLink(point, mapLink, idx, total) {
     const urlStr = mapLink;
     const url = urlStr ? new URL(urlStr) : null;
     const visibleCoords = `${point[0]},${-point[1]}`;
@@ -30,7 +30,7 @@ function makeLink(point, mapLink) {
     url.searchParams.append("zoom", "11");
     return `<a
         href="${url}"
-        target="_blank">${visibleCoords}</a> ${waypointBtn(point)}`;
+        target="_blank">${visibleCoords}</a> ${waypointBtn(point, idx, total)}`;
 }
 
 
@@ -66,13 +66,14 @@ export class TlNavigatorPath extends HTMLElement {
     }
 
     #updatePath(path, mapLink) {
+        const total = path.length;
         const output = [];
         output.push("<ul>");
-        output.push(`<li>Start at ${makeLink(path[0], mapLink)}</li>`);
+        output.push(`<li>Start at ${makeLink(path[0], mapLink, 1, total)}</li>`);
         for (let i = 1; i < path.length - 1; i += 2) {
-            output.push(`<li>Teleport from ${makeLink(path[i], mapLink)} to ${makeLink(path[i + 1], mapLink)}</li>`);
+            output.push(`<li>Teleport from ${makeLink(path[i], mapLink, i + 1, total)} to ${makeLink(path[i + 1], mapLink, i + 2, total)}</li>`);
         }
-        output.push(`<li>Go to ${makeLink(path[path.length - 1], mapLink)}</li>`);
+        output.push(`<li>Go to ${makeLink(path[path.length - 1], mapLink, path.length, total)}</li>`);
         output.push("</ul>");
         const text = output.join("");
         this.outputDiv.innerHTML = text;

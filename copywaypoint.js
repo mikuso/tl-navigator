@@ -1,5 +1,5 @@
 
-async function copyWaypoint(x, y) {
-    const cmd = `/waypoint addati cross ${x} 0 ${y} true red Waypoint`;
+async function copyWaypoint(x, y, idx, total) {
+    const cmd = `/waypoint addati x ${x} 0 ${y} true lime "Waypoint ${idx}/${total}"`;
     await window.navigator.clipboard.writeText(cmd);
 }
