@@ -191,7 +191,7 @@ customServerEditor.addEventListener(
     }
 );
 
-const inputs = ["sourceX", "sourceY", "targetX", "targetY"].reduce((map, id) => {
+const inputs = numberValues.reduce((map, id) => {
     map[id] = document.getElementById(id);
     return map;
 }, {});
