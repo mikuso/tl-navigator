@@ -191,6 +191,44 @@ customServerEditor.addEventListener(
     }
 );
 
+const inputs = ["sourceX", "sourceY", "targetX", "targetY"].reduce((map, id) => {
+    map[id] = document.getElementById(id);
+    return map;
+}, {});
+
+function readSearchParams() {
+    const url = new URL(window.location.href);
+    const params = ["sx", "sy", "tx", "ty"].reduce((map, key) => {
+        const val = +url.searchParams.get(key);
+        map[key] = Number.isNaN(val) ? 0 : val;
+        return map;
+    }, {});
+
+    inputs.sourceX.value = params.sx;
+    inputs.sourceY.value = params.sy;
+    inputs.targetX.value = params.tx;
+    inputs.targetY.value = params.ty;
+}
+
+function updateSearchParams() {
+    const url = new URL(window.location.href);
+    url.searchParams.set('sx', inputs.sourceX.value);
+    url.searchParams.set('sy', inputs.sourceY.value);
+    url.searchParams.set('tx', inputs.targetX.value);
+    url.searchParams.set('ty', inputs.targetY.value);
+    window.history.replaceState(null, '', url.toString());
+}
+
+[
+    inputs.sourceX,
+    inputs.sourceY,
+    inputs.targetX,
+    inputs.targetY,
+].forEach(input => {
+    input.addEventListener('change', updateSearchParams);
+    input.addEventListener('keyup', updateSearchParams);
+});
+
 function handlePaste(event) {
     const clipboardData = event.clipboardData || window.clipboardData;
     const pastedData = clipboardData.getData('Text');
@@ -207,6 +245,7 @@ function handlePaste(event) {
             document.getElementById("targetY").value = y;
         }
 
+        updateSearchParams();
         event.stopPropagation();
         event.preventDefault();
     } catch (e) {
@@ -216,3 +255,5 @@ function handlePaste(event) {
 
 document.getElementById("sourceCoordinates")?.addEventListener("paste", handlePaste, true);
 document.getElementById("targetCoordinates")?.addEventListener("paste", handlePaste, true);
+
+readSearchParams();
