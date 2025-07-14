@@ -5,7 +5,7 @@ This repo contains `translocators.geojson` file from the official public server'
 but you can configure it to use a custom geojson file and map website. If the TOPS's geojson is outdated, you can also just configure server
 and provide a new geojson file. All the information is stored in browser's local storage.
 
-App is [hosted on Github Pages](https://herrscher-of-sleeping.github.io/tl-navigator) where you can use it.
+App is [hosted on Github Pages](https://mikuso.github.io/tl-navigator) where you can use it.
 
 Alternatively, you can clone/download repo and serve files from directory.
 For example, to serve with Python's built-in server, run `python3 -m http.server 8080` inside project's directory and open http://localhost:8080
@@ -30,6 +30,8 @@ or if you just play on another server, you can add server information:
 
 ## License
 MIT license
+
+Forked from https://github.com/herrscher-of-sleeping/tl-navigator
 
 ## 3rd-party
 * [JSNetworkX](https://github.com/fkling/JSNetworkX) (BSD license) for path finding
