@@ -5,6 +5,15 @@ template.innerHTML = `
 <link rel="stylesheet" href="main.css">
 <div id="output"></div>`;
 
+
+function waypointBtn(point) {
+    const clipboardEnabled = !!window.navigator.clipboard;
+    return `<button ${clipboardEnabled ? '' : 'disabled'}
+        onclick="copyWaypoint(${point[0]}, ${point[1]})"
+        >Copy /waypoint</button>`;
+}
+
+
 /**
  * @param {[number, number]} point
  * @returns
@@ -21,7 +30,7 @@ function makeLink(point, mapLink) {
     url.searchParams.append("zoom", "11");
     return `<a
         href="${url}"
-        target="_blank">${visibleCoords}</a>`;
+        target="_blank">${visibleCoords}</a> ${waypointBtn(point)}`;
 }
 
 
