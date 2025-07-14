@@ -28,9 +28,15 @@ function makeLink(point, mapLink, idx, total) {
     url.searchParams.append("x", String(point[0]));
     url.searchParams.append("y", String(point[1]));
     url.searchParams.append("zoom", "11");
-    return `<a
+    let link = `<a
         href="${url}"
-        target="_blank">${visibleCoords}</a> ${waypointBtn(point, idx, total)}`;
+        target="_blank">${visibleCoords}</a>`;
+
+    if (idx) {
+        link += ' ' + waypointBtn(point, idx, total);
+    }
+
+    return link;
 }
 
 
@@ -66,14 +72,16 @@ export class TlNavigatorPath extends HTMLElement {
     }
 
     #updatePath(path, mapLink) {
-        const total = path.length;
+        const total = Math.floor((path.length - 2) / 2);
+        let wpIdx = 1;
         const output = [];
         output.push("<ul>");
-        output.push(`<li>Start at ${makeLink(path[0], mapLink, 1, total)}</li>`);
+        output.push(`<li>Start at ${makeLink(path[0], mapLink)}</li>`);
         for (let i = 1; i < path.length - 1; i += 2) {
-            output.push(`<li>Teleport from ${makeLink(path[i], mapLink, i + 1, total)} to ${makeLink(path[i + 1], mapLink, i + 2, total)}</li>`);
+            output.push(`<li>Teleport from ${makeLink(path[i], mapLink, wpIdx, total)} to ${makeLink(path[i + 1], mapLink)}</li>`);
+            wpIdx++;
         }
-        output.push(`<li>Go to ${makeLink(path[path.length - 1], mapLink, path.length, total)}</li>`);
+        output.push(`<li>Go to ${makeLink(path[path.length - 1], mapLink)}</li>`);
         output.push("</ul>");
         const text = output.join("");
         this.outputDiv.innerHTML = text;
